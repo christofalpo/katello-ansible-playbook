@@ -1,0 +1,6 @@
+---
+katello_pkg: katello
+foreman_services:
+    - httpd
+    - foreman-tasks
+    - foreman-proxy

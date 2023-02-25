@@ -1,8 +1,15 @@
 ---
 - name: 'Ensure libselinux-python is installed'
   yum:
-    name: 'libselinux-python'
+    name: libselinux-python'
     state: installed
+  when: ansible_distribution_major_version == 7 and ansible_os_family == "RedHat"
+
+- name: 'Ensure libselinux-python is installed'
+  yum:
+    name: 'python3-libselinux'
+    state: installed
+  when: ansible_distribution_major_version == 8 and ansible_os_family == "RedHat"
 
 - name: 'Set selinux state'
   selinux:

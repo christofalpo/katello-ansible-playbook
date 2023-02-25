@@ -4,14 +4,16 @@
   with_first_found:
       - "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
       - "{{ ansible_os_family }}.yml"
+      - "el8.yml"
 
-- include: repos.yml
-- include: packages.yml
-- include: foreman-plugins.yml
-- include: foreman-smart-proxy-plugins.yml
-- include: cloudstack_integration.yml
-- include: firewalld.yml
-
+- include_tasks: repos.yml
+- include_tasks: packages.yml
+- include_tasks: foreman-plugins.yml
+- include_tasks: foreman-smart-proxy-plugins.yml
+- include_tasks: cloudstack_integration.yml
+- include_tasks: firewalld.yml
+- include_tasks: install_katello.yml
+- include_tasks: configurations.yml
 
 
 

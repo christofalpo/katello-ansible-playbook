@@ -1,7 +1,9 @@
 ---
+
 - name: configure foreman 
   shell: >
       foreman-installer -v  \
+      --scenario katello \
       --enable-foreman-plugin-ansible \
       --enable-foreman-plugin-bootdisk \
       --enable-foreman-plugin-chef \

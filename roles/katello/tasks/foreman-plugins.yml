@@ -5,4 +5,5 @@
     state: present
   notify: restart foreman
   with_items: "{{ foreman_plugins }}"
+  when: item | regex_search('^tfm') is none 
 
