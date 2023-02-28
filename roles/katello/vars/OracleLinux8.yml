@@ -1,5 +1,10 @@
 ---
-katello_pkg: katello
+katello_pkg: 
+  - katello
+  - libcurl-devel
+  - libxml2-devel
+  - ruby-devel
+
 foreman_services:
     - httpd
     - foreman-tasks

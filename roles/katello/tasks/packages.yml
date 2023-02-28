@@ -2,16 +2,19 @@
 - name: install system updates for centos systems
   yum: name=* state=latest update_cache=yes
   when: ansible_os_family == "RedHat"
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: install development tools
   yum:
     name: '@development' 
     state: latest
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Install katello
   package:
-      name: "{{ item }}"
-      state: present
+    name: "{{ item }}"
+    state: present
+  ignore_errors: "{{ ansible_check_mode }}"
   with_items: "{{ katello_pkg }}"
 
 

@@ -4,42 +4,57 @@
     disable_gpg_check: true
     name: "{{ foreman_repo }}"
     state: present
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: add katello repo
   dnf:
     disable_gpg_check: true
     name: "{{ katello_repo }}"
     state: present
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: add puppetlabs repo
   dnf:
     disable_gpg_check: true
     name: "{{ puppetlabs_repo }}"
     state: present
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: add epel repo
   dnf:
     disable_gpg_check: true
     name: "{{ epel_repo }}"
     state: present
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: add additional repositories
   dnf:
     disable_gpg_check: true
     name: "{{ item }}"
     state: present
+  ignore_errors: "{{ ansible_check_mode }}"
   with_items: "{{ katello_extra_repos }}"
   when: katello_extra_repos is defined
 
 - name: reset ruby module stream
   shell: dnf module -y reset ruby
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: reset postgresql module stream
   shell: dnf module -y reset postgresql
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: configure powertools repo
   shell: dnf config-manager --set-enabled powertools
+  ignore_errors: "{{ ansible_check_mode }}"
+  when: ansible_distribution != "OracleLinux"
+
+- name: configure powertools/codeready_builder repo
+  shell: dnf config-manager --set-enabled ol8_codeready_builder
+  ignore_errors: "{{ ansible_check_mode }}"
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == 8
 
 - name: configure dnf module streams
   shell: dnf module -y enable katello:el8 pulpcore:el8
+  ignore_errors: "{{ ansible_check_mode }}"
 

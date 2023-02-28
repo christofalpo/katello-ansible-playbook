@@ -1,0 +1,43 @@
+---
+
+
+- name: Cockpit listen port moved
+  block:
+    - name: create service configuration directory
+      ansible.builtin.file:
+        path: /etc/systemd/system/cockpit.socket.d
+        state: directory
+        seuser: system_u
+        serole: object_r
+        setype: systemd_unit_file_t
+        mode: '0755'
+
+    - name: set new listen port for cockpit.socket
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/cockpit.socket.d/listen.conf
+        content: |
+          [Socket]
+          ListenStream=
+          ListenStream=9190
+
+        seuser: system_u
+        serole: object_r
+        setype: cockpit_unit_file_t
+        mode: '0644'
+
+    - name: set selinux management context to allow custom port
+      community.general.seport:
+        ports: 9190
+        proto: tcp
+        setype: websm_port_t
+        state: present
+        
+    - name: enable port in firewall
+      ansible.posix.firewalld:
+        port: 9190/tcp
+        permanent: true
+        immediate: true
+        state: enabled
+  notify: restart cockpit.socket
+#  when: convert_cockpit | default(false)
+

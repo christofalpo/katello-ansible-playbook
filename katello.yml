@@ -5,5 +5,7 @@
   become: yes
   become_method: sudo
   roles:
-    - selinux
-    - katello
+    - role: selinux
+    - role: cockpit
+      tags: cockpit
+    - role: katello

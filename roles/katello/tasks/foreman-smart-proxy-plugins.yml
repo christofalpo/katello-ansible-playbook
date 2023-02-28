@@ -3,6 +3,7 @@
   package:
       name: "{{ item }}"
       state: present
+  ignore_errors: "{{ ansible_check_mode }}"
   with_items: "{{ foreman_smart_proxy_plugins }}"
   notify: restart foreman
 
