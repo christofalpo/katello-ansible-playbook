@@ -1,9 +1,12 @@
 ---
+install_foreman_plugins: True
+install_foreman_smart_proxy_plugins: True
+
 katello_pkg: 
-  - katello
-  - libcurl-devel
-  - libxml2-devel
-  - ruby-devel
+  - foreman-installer-katello
+#  - libcurl-devel
+#  - libxml2-devel
+#  - ruby-devel
 
 foreman_services:
     - httpd

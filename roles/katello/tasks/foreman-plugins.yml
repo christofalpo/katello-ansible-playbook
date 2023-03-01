@@ -6,5 +6,5 @@
   ignore_errors: "{{ ansible_check_mode }}"
   notify: restart foreman
   with_items: "{{ foreman_plugins }}"
-  when: item | regex_search('^tfm') is none 
+  when: foreman_plugins is defined and item is defined
 

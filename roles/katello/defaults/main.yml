@@ -1,10 +1,10 @@
 ---
 # foreman baseurl repo urls
-foreman_repo: "https://yum.theforeman.org/releases/3.4/el{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/foreman-release.rpm"
+foreman_repo: "https://yum.theforeman.org/releases/3.5/el{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/foreman-release.rpm"
 
 # Katello baseurl repo
 
-katello_repo: "https://yum.theforeman.org/katello/4.6/katello/el{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/katello-repos-latest.rpm"
+katello_repo: "https://yum.theforeman.org/katello/4.7/katello/el{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/katello-repos-latest.rpm"
 
 # Puppet repository
 puppetlabs_repo: "https://yum.puppet.com/puppet7-release-el-{{ ansible_distribution_major_version }}.noarch.rpm"
@@ -13,6 +13,7 @@ puppetlabs_repo: "https://yum.puppet.com/puppet7-release-el-{{ ansible_distribut
 
 epel_repo: "http://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
 
+foreman_epel_supported: False
 
 foreman_installer_verbose: True
 foreman_installer_scenario: katello
@@ -29,39 +30,39 @@ foreman_installer_smtp_port: "25"
 
 foreman_plugins:
     - foreman-ovirt
-    - foreman-libvirt
-    - foreman-vmware
-    - foreman-openstack
-    - rubygem-foreman_discovery
-    - rubygem-foreman_salt
-    - rubygem-foreman_chef
+#    - foreman-libvirt
+#    - foreman-vmware
+#    - foreman-openstack
+#    - rubygem-foreman_discovery
+#    - rubygem-foreman_salt
+#    - rubygem-foreman_chef
     - rubygem-foreman_bootdisk
     - rubygem-foreman_ansible
-    - rubygem-foreman_dhcp_browser
-    - rubygem-foreman_expire_hosts
-    - rubygem-foreman_column_view
-    - rubygem-fog-libvirt
-    - rubygem-hammer_cli_foreman_discovery
-    - rubygem-foreman_maintain
-    - rubygem-foreman_remote_execution
-    - rubygem-foreman_remote_execution-cockpit
-    - rubygem-foreman-tasks
-    - rubygem-foreman_templates
-    - rubygem-foreman_snapshot_management
-    - rubygem-foreman_hooks
+#    - rubygem-foreman_dhcp_browser
+#    - rubygem-foreman_expire_hosts
+#    - rubygem-foreman_column_view
+#    - rubygem-fog-libvirt
+#    - rubygem-hammer_cli_foreman_discovery
+#    - rubygem-foreman_maintain
+#    - rubygem-foreman_remote_execution
+#    - rubygem-foreman_remote_execution-cockpit
+#    - rubygem-foreman-tasks
+#    - rubygem-foreman_templates
+#    - rubygem-foreman_snapshot_management
+#    - rubygem-foreman_hooks
 
 foreman_smart_proxy_plugins:
     - rubygem-smart_proxy_ansible
-    - rubygem-smart_proxy_chef
-    - rubygem-smart_proxy_discovery
-    - rubygem-smart_proxy_discovery_image
-    - rubygem-smart_proxy_openscap
-    - rubygem-smart_proxy_remote_execution_ssh
-    - rubygem-smart_proxy_monitoring
-    - rubygem-smart_proxy_dns_powerdns
-    - rubygem-smart_proxy_omaha
+#    - rubygem-smart_proxy_chef
+#    - rubygem-smart_proxy_discovery
+#    - rubygem-smart_proxy_discovery_image
+#    - rubygem-smart_proxy_openscap
+#    - rubygem-smart_proxy_remote_execution_ssh
+#    - rubygem-smart_proxy_monitoring
+#    - rubygem-smart_proxy_dns_powerdns
+#    - rubygem-smart_proxy_omaha
     - rubygem-smart_proxy_dns_infoblox
-    - rubygem-smart_proxy_monitoring
+#    - rubygem-smart_proxy_monitoring
     - rubygem-smart_proxy_pulp
 
 

@@ -26,6 +26,7 @@
     name: "{{ epel_repo }}"
     state: present
   ignore_errors: "{{ ansible_check_mode }}"
+  when: foreman_epel_supported == True
 
 - name: add additional repositories
   dnf:
@@ -44,6 +45,10 @@
   shell: dnf module -y reset postgresql
   ignore_errors: "{{ ansible_check_mode }}"
 
+- name: dump distribution
+  debug:
+    msg: "distribution: {{ ansible_distribution }}"
+
 - name: configure powertools repo
   shell: dnf config-manager --set-enabled powertools
   ignore_errors: "{{ ansible_check_mode }}"
@@ -52,7 +57,7 @@
 - name: configure powertools/codeready_builder repo
   shell: dnf config-manager --set-enabled ol8_codeready_builder
   ignore_errors: "{{ ansible_check_mode }}"
-  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == 8
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == '8'
 
 - name: configure dnf module streams
   shell: dnf module -y enable katello:el8 pulpcore:el8

@@ -1,0 +1,38 @@
+---
+- block:
+  - name: install chrony
+    ansible.builtin.dnf:
+      name: chrony
+      state: latest
+      update_cache: yes
+    ignore_errors: "{{ ansible_check_mode }}"
+
+  - name: configure chrony (marks)
+    ansible.builtin.replace:
+      path: /etc/chrony.conf
+      regexp: '^(pool .* iburst)$'
+      replace: '### {mark} ANSIBLE MANAGED BLOCK\n\1\n### {mark} ANSIBLE MANAGED BLOCK'
+    ignore_errors: "{{ ansible_check_mode }}"
+
+  - name: configure chrony (ntp servers)
+    ansible.builtin.blockinfile:
+      path: /etc/chrony.conf
+      marker: "### {mark} ANSIBLE MANAGED BLOCK" 
+      content: |
+        # NTP servers jvf mail fra Martin Engell Nielsen d. 11-07-2019:
+        server ntp.regsj.intern iburst
+        server ntp2.regsj.intern iburst
+        server 172.26.132.43 iburst
+        server 172.26.132.44 iburst
+        server 172.26.132.51 iburst
+
+        # Ignore stratum in source selection.
+        stratumweight 0
+
+  - name: configure chrony service
+    ansible.builtin.systemd:
+      name: chronyd
+      state: restarted
+      enabled: true
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version >= '8'
+

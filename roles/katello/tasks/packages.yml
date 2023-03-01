@@ -1,13 +1,14 @@
 ---
 - name: install system updates for centos systems
-  yum: name=* state=latest update_cache=yes
-  when: ansible_os_family == "RedHat"
+  ansible.builtin.dnf: name=* state=latest update_cache=yes
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version >= '8'
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: install development tools
-  yum:
-    name: '@development' 
+  ansible.builtin.dnf:
+    name: "@development"
     state: latest
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version >= '8'
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Install katello

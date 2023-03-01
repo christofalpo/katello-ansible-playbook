@@ -8,4 +8,6 @@
     - role: selinux
     - role: cockpit
       tags: cockpit
+    - role: chrony
+      tags: crony
     - role: katello
