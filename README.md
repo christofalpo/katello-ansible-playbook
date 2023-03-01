@@ -1,6 +1,6 @@
 # Ansible playbook to deploy foreman with katello scenario
 
-Ansible playbook to deploy katello and foreman on CentOS7.
+Ansible playbook to deploy katello and foreman on Enterprise Linux 8.
 
 Directory structure is as below:
 
