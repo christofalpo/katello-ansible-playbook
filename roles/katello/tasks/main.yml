@@ -6,14 +6,60 @@
       - "{{ ansible_os_family }}.yml"
       - "el8.yml"
 
-- include_tasks: repos.yml
-- include_tasks: packages.yml
-- include_tasks: foreman-plugins.yml
+- name: do repos
+  ansible.builtin.include_tasks: 
+    file: repos.yml
+    apply:
+      tags:
+        - repos
+        - install
+
+- name: do packages
+  ansible.builtin.include_tasks:
+    file: packages.yml
+    apply:
+      tags:
+        - install
+
+- name: do foreman-plugins
+  ansible.builtin.include_tasks:
+    file: foreman-plugins.yml
+    apply:
+      tags:
+        - install
   when: install_foreman_plugins | default(False)
-- include_tasks: foreman-smart-proxy-plugins.yml
+
+- name: do foreman-smart-proxy-plugins
+  ansible.builtin.include_tasks:
+    file: foreman-smart-proxy-plugins.yml
+    apply:
+      tags:
+        - install
   when: install_foreman_smart_proxy_plugins | default(False)
-#- include_tasks: cloudstack_integration.yml
-- include_tasks: firewalld.yml
-- include_tasks: install_katello.yml
-- include_tasks: configurations.yml
+
+- name: do cloudstack-integration
+  ansible.builtin.include_tasks:
+    file: cloudstack_integration.yml
+    apply:
+      tags:
+        - install
+  when: install_foreman_cloudstack_integration | default(False)
+
+- name: do firewall
+  ansible.builtin.include_tasks: 
+    file: firewalld.yml
+
+- name: do install-foreman-katello
+  ansible.builtin.include_tasks:
+    file: install_katello.yml
+    apply:
+      tags:
+        - install
+
+- name: do configuration
+  ansible.builtin.include_tasks:
+    file: configurations.yml
+    apply:
+      tags:
+        - configure
 
