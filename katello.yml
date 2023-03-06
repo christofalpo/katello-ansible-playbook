@@ -5,6 +5,7 @@
   become: yes
   become_method: sudo
   roles:
+    - role: storage
     - role: selinux
     - role: cockpit
       tags: cockpit

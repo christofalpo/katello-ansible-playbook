@@ -6,10 +6,21 @@ Directory structure is as below:
 
 ```
 .
-├── hosts
+├── inventory
+│   ├── group_vars
+│   ├── hosts
+│   └── host_vars
 ├── katello.yml
 ├── README.md
 └── roles
+    ├── chrony
+    │   └── tasks
+    │       └── main.yml
+    ├── cockpit
+    │   ├── handlers
+    │   │   └── main.yml
+    │   └── tasks
+    │       └── main.yml
     ├── katello
     │   ├── defaults
     │   │   └── main.yml
@@ -30,12 +41,16 @@ Directory structure is as below:
     │   │   ├── foreman.repo.j2
     │   │   └── rvm_installer.sh.j2
     │   └── vars
-    │       └── CentOS7.yml
+    │       ├── CentOS7.yml
+    │       ├── el8.yml
+    │       └── OracleLinux8.yml
     └── selinux
         ├── defaults
         │   └── main.yml
         └── tasks
             └── main.yml
+
+19 directories, 25 files
 ```
 
 ## Using playbook

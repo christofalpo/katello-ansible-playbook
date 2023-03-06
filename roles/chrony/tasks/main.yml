@@ -19,15 +19,16 @@
       path: /etc/chrony.conf
       marker: "### {mark} ANSIBLE MANAGED BLOCK" 
       content: |
-        # NTP servers jvf mail fra Martin Engell Nielsen d. 11-07-2019:
-        server ntp.regsj.intern iburst
-        server ntp2.regsj.intern iburst
-        server 172.26.132.43 iburst
-        server 172.26.132.44 iburst
-        server 172.26.132.51 iburst
+        {% if ntpserves is defined %}
+        {% for ntpserver in ntpservers %}
+        server {{ ntpserver }} iburst
+        {% endfor %}
 
         # Ignore stratum in source selection.
         stratumweight 0
+        {% else %}
+        pool 2.pool.ntp.org iburst
+        {% endif %}
 
   - name: configure chrony service
     ansible.builtin.systemd:

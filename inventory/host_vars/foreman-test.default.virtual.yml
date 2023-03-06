@@ -1,0 +1,30 @@
+storage_pools:
+  - name: foreman_data 
+    disks:
+      - vdb
+    volumes:
+      - name: pulp_cache
+        size: 13GiB
+        fs_type: xfs
+        mount_point: /var/cache/pulp
+        state: present
+      - name: pulp_data 
+        size: 50GiB
+        fs_type: xfs
+        mount_point: /var/lib/pulp 
+        state: present
+      - name: qpidd
+        size: 5GiB
+        fs_type: xfs
+        mount_point: /var/lib/qpidd 
+        state: present
+      - name: pgsql_data
+        size: 5GiB
+        fs_type: xfs
+        mount_point: /var/lib/pgsql
+        state: present
+      - name: squid_data
+        size: 5GiB
+        fs_type: xfs
+        mount_point: /var/lib/squid
+        state: present

@@ -1,0 +1,4 @@
+---
+
+- include_role:
+    name: fedora.linux_system_roles.storage

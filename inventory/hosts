@@ -1,0 +1,3 @@
+[katello]
+foreman-test.default.virtual ansible_host=192.168.122.211
+
