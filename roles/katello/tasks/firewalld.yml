@@ -1,4 +1,5 @@
 ---
+
 - firewalld:
     zone: public
     permanent: true
@@ -9,86 +10,26 @@
     zone: public
     permanent: true
     state: enabled
-    port: 53/tcp
-
-- firewalld:
-    zone: public
-    permanent: true
-    state: enabled
-    port: 80/tcp
-
-- firewalld:
-    zone: public
-    permanent: true
-    state: enabled
-    port: 3000/tcp
-
-- firewalld:
-    zone: public
-    permanent: true
-    state: enabled
-    port: 3306/tcp
-
-- firewalld:
-    zone: public
-    permanent: true
-    state: enabled
-    port: 5432/tcp
-
-- firewalld:
-    zone: public
-    permanent: true
-    state: enabled
-    port: 8140/tcp
-
-- firewalld:
-    zone: public
-    permanent: true
-    state: enabled
-    port: 8443/tcp
-
-- firewalld:
-    zone: public
-    permanent: true
-    state: enabled
-    port: 9090/tcp
-
-- firewalld:
-    zone: public
-    permanent: true
-    state: enabled
-    port: 5647/tcp
-
-- firewalld:
-    zone: public
-    permanent: true
-    state: enabled
-    port: 5910-5930/tcp
-
-- firewalld:
-    zone: public
-    permanent: true
-    state: enabled
-    port: 53/udp
-
-- firewalld:
-    zone: public
-    permanent: true
-    state: enabled
-    port: 67/udp
-
-- firewalld:
-    zone: public
-    permanent: true
-    state: enabled
-    port: 68/udp
-
-- firewalld:
-    zone: public
-    permanent: true
-    state: enabled
-    port: 69/udp
-
+    port: "{{ item }}"
+  loop:
+    - 53/tcp
+    - 80/tcp
+    - 3000/tcp
+    - 3306/tcp
+    - 5432/tcp
+    - 8140/tcp
+    - 8443/tcp
+    - 9090/tcp
+    - 5647/tcp
+    - 5910-5930/tcp
+    - 53/udp
+    - 67/udp
+    - 68/udp
+    - 69/udp
+  loop_control:
+    label: "Firewall: enable {{ item }}"
+    
 - name: reload firewalld
   command: firewall-cmd --reload 
 
+...

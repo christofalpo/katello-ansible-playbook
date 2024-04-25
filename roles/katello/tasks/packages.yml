@@ -1,6 +1,9 @@
 ---
 - name: install system updates for {{ ansible_distribution }} systems
-  ansible.builtin.dnf: name=* state=latest update_cache=yes
+  ansible.builtin.dnf:
+    name: *
+    state: latest
+    update_cache: yes
   when: ansible_os_family == "RedHat" and ansible_distribution_major_version >= '8'
   ignore_errors: "{{ ansible_check_mode }}"
 
@@ -12,10 +15,10 @@
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Install katello
-  package:
+  ansible.builtin.package:
     name: "{{ item }}"
     state: present
   ignore_errors: "{{ ansible_check_mode }}"
-  with_items: "{{ katello_pkg }}"
+  loop: "{{ katello_pkg }}"
 
-
+...

@@ -1,15 +1,15 @@
 ---
 - name: Install foreman smart proxy plugins
-  package:
+  ansible.builtin.package:
       name: "{{ item }}"
       state: present
   ignore_errors: "{{ ansible_check_mode }}"
-  with_items: "{{ foreman_smart_proxy_plugins }}"
+  loop: "{{ foreman_smart_proxy_plugins }}"
   when: foreman_smart_proxy_plugins is defined and item is defined
   notify: restart foreman
 
 - name: create smart-proxy key if not found
-  user:
+  ansible.builtin.user:
     name: foreman-proxy
     generate_ssh_key: yes
     ssh_key_type: rsa
@@ -17,4 +17,3 @@
     ssh_key_file: .ssh/id_rsa_foreman_proxy
     ssh_key_passphrase: ""
     force: no
-  

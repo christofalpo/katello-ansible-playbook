@@ -1,27 +1,27 @@
 ---
 - name: add foreman repo
-  dnf:
+  ansible.builtin.dnf:
     disable_gpg_check: true
     name: "{{ foreman_repo }}"
     state: present
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: add katello repo
-  dnf:
+  ansible.builtin.dnf:
     disable_gpg_check: true
     name: "{{ katello_repo }}"
     state: present
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: add puppetlabs repo
-  dnf:
+  ansible.builtin.dnf:
     disable_gpg_check: true
     name: "{{ puppetlabs_repo }}"
     state: present
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: add epel repo
-  dnf:
+  ansible.builtin.dnf:
     disable_gpg_check: true
     name: "{{ epel_repo }}"
     state: present
@@ -29,7 +29,7 @@
   when: foreman_epel_supported == True
 
 - name: add additional repositories
-  dnf:
+  ansible.builtin.dnf:
     disable_gpg_check: true
     name: "{{ item }}"
     state: present
@@ -38,28 +38,29 @@
   when: katello_extra_repos is defined
 
 - name: reset ruby module stream
-  shell: dnf module -y reset ruby
+  ansible.builtin.shell: dnf module -y reset ruby
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: reset postgresql module stream
-  shell: dnf module -y reset postgresql
+  ansible.builtin.shell: dnf module -y reset postgresql
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: dump distribution
-  debug:
+  ansible.builtin.debug:
     msg: "distribution: {{ ansible_distribution }}"
 
 - name: configure powertools repo
-  shell: dnf config-manager --set-enabled powertools
+  ansible.builtin.shell: dnf config-manager --set-enabled powertools
   ignore_errors: "{{ ansible_check_mode }}"
   when: ansible_distribution != "OracleLinux"
 
 - name: configure powertools/codeready_builder repo
-  shell: dnf config-manager --set-enabled ol8_codeready_builder
+  ansible.builtin.shell: dnf config-manager --set-enabled ol8_codeready_builder
   ignore_errors: "{{ ansible_check_mode }}"
   when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == '8'
 
 - name: configure dnf module streams
-  shell: dnf module -y enable katello:el8 pulpcore:el8
+  ansible.builtin.shell: dnf module -y enable katello:el8 pulpcore:el8
   ignore_errors: "{{ ansible_check_mode }}"
 
+...

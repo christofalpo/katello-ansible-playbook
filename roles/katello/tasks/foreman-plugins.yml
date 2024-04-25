@@ -5,6 +5,6 @@
     state: present
   ignore_errors: "{{ ansible_check_mode }}"
   notify: restart foreman
-  with_items: "{{ foreman_plugins }}"
+  loop: "{{ foreman_plugins }}"
   when: foreman_plugins is defined and item is defined
 
