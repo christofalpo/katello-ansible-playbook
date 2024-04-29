@@ -33,13 +33,14 @@
 - name: Disable dnf modules
   ansible.builtin.command:
     cmd: >-
-      dnf module disable pulpcore:el8
-  when: upgrade_version is version('4.9', '>')
+      dnf module disable "{{ outer_item.repo_modules_disabled | join(' ') }}"
+  when: outer_item.repo_modules_disabled.length() > 0
 
 - name: Enable modules
   ansible.builtin.command:
     cmd: >-
-      dnf module enable katello:el8
+      dnf module enable "{{ outer_item.repo_modules_enabled | join(' ') }}"
+  when: outer_item.repo_modules_enabled.length() > 0
 
 - name: Shutdown foreman services
   ansible.builtin.command:
@@ -66,4 +67,6 @@
 
 - name: Reboot server
   ansible.builtin.reboot:
-  when: needs_restarting 
+  when: needs_restarting
+
+...

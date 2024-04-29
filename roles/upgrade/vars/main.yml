@@ -33,11 +33,11 @@ upgrade_path:
     repo_modules_enabled:
       - "katello:el8"
     repo_modules_disabled:
-      - "pulpcore:el8"
+      - "pulpcore"
   - version: 3.10
     foreman_repo_url: https://yum.theforeman.org/releases/3.10/el8/x86_64/foreman-release.rpm
     katello_repo_url: https://yum.theforeman.org/katello/4.12/katello/el8/x86_64/katello-repos-latest.rpm
     repo_modules_enabled:
       - "katello:el8"
     repo_modules_disabled:
-      - "pulpcore:el8"
+      - "pulpcore"
