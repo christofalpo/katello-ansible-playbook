@@ -1,0 +1,69 @@
+---
+
+- name: Update OS to latest version
+  ansible.builtin.dnf:
+    name: *
+    state: latest
+    update_cache: yes
+
+- name: Install postgresql-contrib
+  ansible.builtin.dnf:
+    name: postgresql-contrib
+    state: present
+
+- name: Install extension into pulpcore database
+  ansible.builtin.command:
+    cmd: >-
+      psql pulpcore -c 'create extension if not exists "hstore";'
+  become_user: postgres
+
+- name: Check non-completed foreman migrations
+  ansible.builtin.command:
+    cmd: >-
+      foreman-rake katello:upgrade_check
+
+- name: Install update repositories
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - https://yum.theforeman.org/releases/3.6/el8/x86_64/foreman-release.rpm
+    - https://yum.theforeman.org/katello/4.8/katello/el8/x86_64/katello-repos-latest.rpm
+
+- name: Disable dnf modules
+  ansible.builtin.command:
+    cmd: >-
+      dnf module disable pulpcore:el8
+  when: upgrade_version is version('4.9', '>')
+
+- name: Enable modules
+  ansible.builtin.command:
+    cmd: >-
+      dnf module enable katello:el8
+
+- name: Shutdown foreman services
+  ansible.builtin.command:
+    cmd: >-
+      foreman-maintain service stop
+
+- name: Update packages
+  ansible.builtin.dnf:
+    name: *
+    state: latest
+    update_cache: yes
+
+- name: Upgrade foreman
+  ansible.builtin.command:
+    cmd: >-
+      foreman-installer
+
+- name: Check for reboot requirement
+  ansible.builtin.command:
+    cmd: >-
+      dnf needs-restarting --reboothint
+  register:
+    needs_restarting
+
+- name: Reboot server
+  ansible.builtin.reboot:
+  when: needs_restarting 

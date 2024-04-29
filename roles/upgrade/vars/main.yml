@@ -1,0 +1,43 @@
+upgrade_path:
+  - version: 3.5
+    foreman_repo_url: https://yum.theforeman.org/releases/3.5/el8/x86_64/foreman-release.rpm
+    katello_repo_url: https://yum.theforeman.org/katello/4.7/katello/el8/x86_64/katello-repos-latest.rpm
+    repo_modules_enabled:
+      - "pulpcore:el8"
+      - "katello:el8"
+    repo_modules_disabled: [ ]
+  - version: 3.6
+    foreman_repo_url: https://yum.theforeman.org/releases/3.6/el8/x86_64/foreman-release.rpm
+    katello_repo_url: https://yum.theforeman.org/katello/4.8/katello/el8/x86_64/katello-repos-latest.rpm
+    repo_modules_enabled:
+      - "pulpcore:el8"
+      - "katello:el8"
+    repo_modules_disabled: [ ]
+  - version: 3.7
+    foreman_repo_url: https://yum.theforeman.org/releases/3.7/el8/x86_64/foreman-release.rpm
+    katello_repo_url: https://yum.theforeman.org/katello/4.9/katello/el8/x86_64/katello-repos-latest.rpm
+    repo_modules_enabled:
+      - "pulpcore:el8"
+      - "katello:el8"
+    repo_modules_disabled: [ ]
+  - version: 3.8
+    foreman_repo_url: https://yum.theforeman.org/releases/3.8/el8/x86_64/foreman-release.rpm
+    katello_repo_url: https://yum.theforeman.org/katello/4.10/katello/el8/x86_64/katello-repos-latest.rpm
+    repo_modules_enabled:
+      - "pulpcore:el8"
+      - "katello:el8"
+    repo_modules_disabled: [ ]
+  - version: 3.9
+    foreman_repo_url: https://yum.theforeman.org/releases/3.9/el8/x86_64/foreman-release.rpm
+    katello_repo_url: https://yum.theforeman.org/katello/4.11/katello/el8/x86_64/katello-repos-latest.rpm
+    repo_modules_enabled:
+      - "katello:el8"
+    repo_modules_disabled:
+      - "pulpcore:el8"
+  - version: 3.10
+    foreman_repo_url: https://yum.theforeman.org/releases/3.10/el8/x86_64/foreman-release.rpm
+    katello_repo_url: https://yum.theforeman.org/katello/4.12/katello/el8/x86_64/katello-repos-latest.rpm
+    repo_modules_enabled:
+      - "katello:el8"
+    repo_modules_disabled:
+      - "pulpcore:el8"
